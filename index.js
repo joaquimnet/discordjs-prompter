@@ -4,14 +4,14 @@ module.exports.message = (
     question: 'Yes or no?',
     prefix: '',
     userId: 'some_id',
-    timeout: 60000,
+    timeout: 30000,
     failIfTimeout: false,
     max: 1,
   }
 ) => {
   // Defaults
   if (!options.question) options.question = 'Yes or no?';
-  if (!options.timeout) options.timeout = 60000;
+  if (!options.timeout) options.timeout = 30000;
   if (!options.max) options.max = 1;
 
   // Filter out messages with the wrong prefix/author
@@ -56,14 +56,14 @@ module.exports.reaction = (
     userId: 'some_id',
     confirm: '✅',
     cancel: '❌',
-    timeout: 60000,
+    timeout: 30000,
   }
 ) => {
   // Defaults
   if (!options.question) options.question = 'Yes or no?';
   if (!options.confirm) options.confirm = '✅';
   if (!options.cancel) options.cancel = '❌';
-  if (!options.timeout) options.timeout = 60000;
+  if (!options.timeout) options.timeout = 30000;
 
   // Filter for the reactions collector
   const filter = (reaction, user) => {
