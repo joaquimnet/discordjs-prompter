@@ -4,7 +4,7 @@
   "description": "Prompt for a user response using reactions or a massage.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [
     "discord",
@@ -21,5 +21,8 @@
     "url": "https://github.com/joaquimnet/discordjs-prompter.git"
   },
   "homepage": "https://github.com/joaquimnet/discordjs-prompter",
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jest": "^24.0.5"
+  }
 }
