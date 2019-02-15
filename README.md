@@ -90,7 +90,7 @@ client.login('YOUR_BOT_TOKEN_HERE');
 
 Prompts the user and returns a promise that will resolve to the collection of messages collected. The messages to be collected can be configured with the options object.
 
-- channel: Discord.JS TextChannel
+- channel: [TextChannel](https://discord.js.org/#/docs/main/stable/class/TextChannel)
   - The text channel to send the prompt to.
 - options: Object
   - The configuration object
@@ -102,7 +102,7 @@ Prompts the user and returns a promise that will resolve to the collection of me
 |--|--|
 | question | The message to be displayed. (Default: `'Yes or No?'`) |
 | prefix | If provided, will only collect messages starting with this prefix. (Default: `null`) |
-| userId | If provided, will only accept answers from this user. |
+| userId | If not provided, it will, respecting the prefix option, resolve to the next message on the channel regardless of who responded. |
 | timeout | How long to wait for the messages. (Default: `30000`) |
 | failIfTimeout | If set to true, the promise will resolve to `false` unless you meet the max criteria. (Default: `false`) |
 | max | How many messages to collect.  (Default: `1`) |
@@ -113,7 +113,7 @@ Prompts the user and returns a promise that will resolve to the collection of me
 
 Prompts the user with two reactions and returns a promise that will resolve to either 'yes' if the user confirms, 'no' if the user cancels or false if the time runs out.
 
-- channel: Discord.JS TextChannel
+- channel: [TextChannel](https://discord.js.org/#/docs/main/stable/class/TextChannel)
   - The text channel to send the prompt to.
 - options: Object
   - The configuration object
@@ -124,7 +124,7 @@ Prompts the user with two reactions and returns a promise that will resolve to e
 | Option | Effect |
 |--|--|
 | question | The message to be displayed. (Default: `'Yes or No?'`) |
-| userId | If provided, will only accept answers from this user. |
+| userId | If not provided, it will resolve to the next reaction that fulfills the confirm/cancel options regardless of who reacted. |
 | confirm | The [unicode emoji](https://unicode.org/emoji/charts/full-emoji-list.html) to use as the confirm option (Default: ✅) |
 | cancel | The [unicode emoji](https://unicode.org/emoji/charts/full-emoji-list.html) to use as the cancel option (Default: ❌) |
 | timeout | How long to wait for the messages. (Default: `30000`) |
