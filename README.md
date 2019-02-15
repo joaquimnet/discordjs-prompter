@@ -88,12 +88,12 @@ client.login('YOUR_BOT_TOKEN_HERE');
 
 ### **Prompt.message(channel, options);**
 
-Prompts the user and return a promise that will resolve to the collection of messages collected. The messages to be collected can be configured with the options object.
+Prompts the user and returns a promise that will resolve to the collection of messages collected. The messages to be collected can be configured with the options object.
 
 - channel: Discord.JS TextChannel
--- The text channel to send the prompt to.
+  - The text channel to send the prompt to.
 - options: Object
--- The configuration object
+  - The configuration object
 - **Returns: Promise**
 
 **Options object:**
