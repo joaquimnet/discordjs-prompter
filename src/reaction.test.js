@@ -5,6 +5,6 @@ test('should be truthy', () => {
 });
 
 test('should throw a missing channel error', () => {
-  const typeError = () => reaction('a');
+  const typeError = () => reaction();
   expect(typeError).toThrowError('Missing channel');
 });
