@@ -16,7 +16,10 @@
   ],
   "author": "Joaquim Neto",
   "license": "MIT",
-  "dependencies": {
-    "discord.js": "^11.4.2"
-  }
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joaquimnet/discordjs-prompter.git"
+  },
+  "homepage": "https://github.com/joaquimnet/discordjs-prompter",
+  "dependencies": {}
 }
