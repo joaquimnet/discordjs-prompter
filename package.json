@@ -1,6 +1,6 @@
 {
   "name": "discordjs-prompter",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Prompt for a user response using reactions or a massage.",
   "main": "./src/index.js",
   "scripts": {
