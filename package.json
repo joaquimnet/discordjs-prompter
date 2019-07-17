@@ -4,7 +4,12 @@
   "description": "Prompt for a user response using reactions or a massage.",
   "main": "./src/index.js",
   "scripts": {
-    "test": "jest --verbose"
+    "test": "jest --verbose && npm run lint:typescript && npm run lint:check",
+    "build": "tsc",
+    "prepublishOnly": "rimraf ./dist && npm run build",
+    "lint:check": "eslint ./src/**/*",
+    "lint:fix": "eslint ./src/**/* --fix",
+    "lint:typescript": "tsc --noEmit --pretty"
   },
   "keywords": [
     "discord",
@@ -31,10 +36,17 @@
     "@typescript-eslint/eslint-plugin": "^1.12.0",
     "@typescript-eslint/parser": "^1.12.0",
     "eslint": "^6.0.1",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
     "jest": "^24.8.0",
+    "prettier": "^1.18.2",
+    "rimraf": "^2.6.3",
     "typescript": "^3.5.3"
   },
   "jest": {
-    "testMatch": [ "**/tests/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)" ]
+    "testMatch": [
+      "**/tests/**/*.[jt]s?(x)",
+      "**/?(*.)+(spec|test).[jt]s?(x)"
+    ]
   }
 }
