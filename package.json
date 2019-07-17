@@ -25,7 +25,5 @@
   "peerDependencies": {
     "discord.js": "^11.0.0"
   },
-  "devDependencies": {
-    "@types/jest": "^24.0.5"
-  }
+  "devDependencies": {}
 }
