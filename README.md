@@ -5,7 +5,7 @@
 <img  src="https://img.shields.io/npm/v/discordjs-prompter.svg?cacheSeconds=2592000"  />
 </a>
 <a href="https://github.com/joaquimnet/discordjs-prompter#readme" target="_blank">
-<img href="https://img.shields.io/github/package-json/v/joaquimnet/discordjs-prompter/master.svg?color=yellow" alt="Version@Master" />
+<img src="https://img.shields.io/github/package-json/v/joaquimnet/discordjs-prompter/master.svg?color=yellow&cacheSeconds=2592000" alt="Version@Master" />
 </a>
 <a  href="https://github.com/joaquimnet/discordjs-prompter#api">
 <img  alt="Documentation"  src="https://img.shields.io/badge/documentation-yes-green.svg"  target="_blank"  />
