@@ -94,7 +94,7 @@ Prompts the user and returns a promise that will resolve to the collection of me
   - The text channel to send the prompt to.
 - options: Object
   - The configuration object
-- **Returns: Promise**
+- **Returns: Promise<[Collection](https://discord.js.org/#/docs/main/stable/class/TextChannel)<[Snowflake](https://discord.js.org/#/docs/main/stable/typedef/Snowflake), [Message](https://discord.js.org/#/docs/main/stable/class/Message)>>**
 
 **Options object:**
 
@@ -104,7 +104,7 @@ Prompts the user and returns a promise that will resolve to the collection of me
 | prefix | If provided, will only collect messages starting with this prefix. (Default: `null`) |
 | userId | If not provided, it will, respecting the prefix option, resolve to the next message on the channel regardless of who responded. |
 | timeout | How long to wait for the messages. (Default: `30000`) |
-| failIfTimeout | If set to true, the promise will resolve to `false` unless you meet the max criteria. (Default: `false`) |
+| failIfTimeout | By default, the promise will resolve with a list of messages regardless of reaching or not the max criteria. If this is set to true, the promise will resolve to `false`. (Default: `false`) |
 | max | How many messages to collect.  (Default: `1`) |
 
 ---
@@ -117,7 +117,7 @@ Prompts the user with two reactions and returns a promise that will resolve to e
   - The text channel to send the prompt to.
 - options: Object
   - The configuration object
-- **Returns: Promise**
+- **Returns: Promise<string|boolean>**
 
 **Options object:**
 
