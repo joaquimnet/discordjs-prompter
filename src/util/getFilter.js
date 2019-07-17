@@ -21,6 +21,14 @@ const getFilter = (type, options) => {
       return correctEmoji && correctUser;
     };
   }
+  if (type === 'vote') {
+    return (reaction, user) => {
+      return (
+        options.choices.includes(reaction.emoji.name) ||
+        options.choices.includes(reaction.emoji)
+      );
+    };
+  }
   throw new Error('Unknown filter');
 };
 
