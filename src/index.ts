@@ -1,5 +1,8 @@
-const message = require('./message');
-const reaction = require('./reaction');
-const vote = require('./vote');
+import { message } from './message';
+import { reaction } from './reaction';
+import { vote } from './vote';
 
-module.exports = { message, reaction, vote };
+const Prompter = { message, reaction, vote };
+
+export default Prompter;
+module.exports = Prompter;

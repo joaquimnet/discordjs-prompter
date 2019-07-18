@@ -1,27 +1,31 @@
-const getFilter = require('./util/getFilter');
+import { getFilter } from './util/getFilter';
+import { TextChannel, Collection, Snowflake, Message, DMChannel, GroupDMChannel } from 'discord.js';
 
-module.exports = (
-  channel,
-  options = {
-    question: 'Yes or no?',
-    prefix: '',
-    userId: 'some_id',
-    timeout: 30000,
-    failIfTimeout: false,
-    max: 1,
+export const message = (
+  channel: TextChannel | DMChannel | GroupDMChannel,
+  options: {
+    question: string;
+    prefix?: string;
+    userId?: string;
+    timeout?: number;
+    failIfTimeout?: boolean;
+    max?: number;
   }
 ) => {
   if (!channel) throw new Error('Missing channel');
-
   // Defaults
   if (!options.question) options.question = 'Yes or no?';
+  if (!options.prefix) options.prefix = '';
   if (!options.timeout) options.timeout = 30000;
   if (!options.failIfTimeout) options.failIfTimeout = false;
   if (!options.max) options.max = 1;
 
+  console.log('MESSAGE OPTIONS:', options);
+
   // This function will return a promise that will resolve to a collection of message or false if the time ran out
-  return new Promise((resolve, reject) => {
-    channel.send(options.question).then(msg => {
+  return new Promise<Collection<Snowflake, Message> | false>(resolve => {
+    channel.send(options.question).then((msg: Message | Message[]) => {
+      const message = msg instanceof Array ? msg[0] : msg;
       channel
         .awaitMessages(getFilter('message', options), {
           max: options.max,
@@ -30,11 +34,11 @@ module.exports = (
         })
         .then(collected => {
           // Clear the prompt and resolve with the result
-          msg.delete().then(() => resolve(collected));
+          message.delete().then(() => resolve(collected));
         })
         .catch(collected => {
           // Clear the prompt and resolve with the result
-          msg.delete().then(() => {
+          message.delete().then(() => {
             if (options.failIfTimeout) {
               resolve(false);
             } else {

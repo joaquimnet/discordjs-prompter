@@ -1,22 +1,34 @@
-const getFilter = require('./util/getFilter');
+import { getFilter } from './util/getFilter';
+import { ReactionEmoji, Emoji, TextChannel, GroupDMChannel, DMChannel } from 'discord.js';
 
-module.exports = (
-  channel,
-  options = {
+export const vote = (
+  channel: TextChannel|GroupDMChannel|DMChannel,
+  options: {
+    question: string;
+    choices: Array<string | ReactionEmoji | Emoji>;
+    max?: number;
+    timeout?: number;
+    deleteMessage?: boolean;
+  } = {
     question: 'Cast your vote!',
-    choices: ['❤', '🧡', '💛', '💙', '💚', '💜', '🖤'],
+    choices: ['❤', '💛', '💙', '💚', '💜', '🖤'],
     max: 50,
     timeout: 30000,
     deleteMessage: false,
-  }
+  },
 ) => {
   if (!channel) throw new Error('Missing channel');
+  if (options && !options.choices) throw new Error('Vote prompt requires options.choices');
+  if (!options.timeout) options.timeout = 30000;
+
+  // Function to get the votes
   const getVotes = async () => {
     const msg = await channel.send(options.question);
+    const message = msg instanceof Array ? msg[0] : msg;
 
     // React with possible choices
     for (const choice of options.choices) {
-      msg.react(choice);
+      message.react(choice);
     }
 
     // Options for the collector
@@ -25,22 +37,36 @@ module.exports = (
     };
 
     // Await for the reactions
-    const collected = await msg.awaitReactions(getFilter('vote', options), opt);
+    const collected = await message.awaitReactions(
+      getFilter('vote', options),
+      opt,
+    );
 
     // Delete message after collecting
     if (options.deleteMessage) {
-      await msg.delete();
+      await message.delete();
     }
 
-    const result = { emojis: [], total: 0 };
+    const result: {
+      emojis: Array<{
+        emoji: string | ReactionEmoji | Emoji;
+        count: number;
+      }>;
+      total: number;
+    } = { emojis: [], total: 0 };
 
     for (const reaction of collected) {
-      const guildEmoji = msg.guild.emojis.get(reaction[0]);
+      const guildEmoji = message.guild.emojis.get(reaction[0]);
+      let foundEmoji;
       if (guildEmoji) {
-        result.emojis.push({ emoji: guildEmoji, count: reaction[1].count - 1 });
+        foundEmoji = { emoji: guildEmoji, count: reaction[1].count - 1 };
       } else {
-        result.emojis.push({ emoji: reaction[0], count: reaction[1].count - 1 });
+        foundEmoji = {
+          emoji: reaction[0],
+          count: reaction[1].count - 1,
+        };
       }
+      result.emojis.push(foundEmoji);
       result.total += reaction[1].count - 1;
     }
 
@@ -55,7 +81,14 @@ module.exports = (
     return result;
   };
 
-  return new Promise((resolve, reject) => {
+  // Returned promise of vote()
+  return new Promise<{
+    emojis: Array<{
+      emoji: string | ReactionEmoji | Emoji;
+      count: number;
+    }>;
+    total: number;
+  }>((resolve, reject) => {
     // Send confirm question
     getVotes()
       .then(res => resolve(res))

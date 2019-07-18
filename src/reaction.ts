@@ -1,35 +1,53 @@
-const getFilter = require('./util/getFilter');
+import { getFilter } from './util/getFilter';
+import {
+  TextChannel,
+  DMChannel,
+  GroupDMChannel,
+  Message,
+  Emoji,
+  ReactionEmoji,
+} from 'discord.js';
 
-module.exports = (
-  channel,
-  options = {
+export const reaction = (
+  channel: TextChannel | DMChannel | GroupDMChannel,
+  options: {
+    question: string;
+    confirm?: string | ReactionEmoji | Emoji;
+    cancel?: string | ReactionEmoji | Emoji;
+    userId?: string;
+    timeout?: number;
+  } = {
     question: 'Yes or no?',
-    userId: 'some_id',
     confirm: '✅',
     cancel: '❌',
     timeout: 30000,
-  }
+  },
 ) => {
   if (!channel) throw new Error('Missing channel');
 
   // Defaults
   if (!options.question) options.question = 'Yes or no?';
-  if (!options.confirm) options.confirm = '✅';
-  if (!options.cancel) options.cancel = '❌';
   if (!options.timeout) options.timeout = 30000;
+  const confirm = options.confirm ? options.confirm : '✅';
+  const cancel = options.cancel ? options.cancel : '❌';
+  options.confirm = confirm;
+  options.cancel = cancel;
 
-  return new Promise((resolve, reject) => {
+  return new Promise<'yes' | 'no' | false>(resolve => {
     // Send confirm question
-    channel.send(options.question).then(msg => {
+    channel.send(options.question).then((msg: Message | Message[]) => {
+      const message = msg instanceof Array ? msg[0] : msg;
       // Send initial reactions
-      msg
-        .react(options.confirm)
-        .then(() => msg.react(options.cancel))
+      message
+        .react(confirm)
+        .then(() => {
+          message.react(cancel);
+        })
         // Catch if user responded before second reaction is dispatched
         .catch();
 
       // Await response
-      msg
+      message
         .awaitReactions(getFilter('reaction', options), {
           max: 1,
           time: options.timeout,
@@ -37,18 +55,17 @@ module.exports = (
         })
         .then(collected => {
           const reaction = collected.first();
-
-          if (reaction.emoji.name === options.confirm) {
+          if (reaction.emoji.name === confirm) {
             // If confirmed, delete message and resolve
-            msg.delete().then(() => resolve('yes'));
+            message.delete().then(() => resolve('yes'));
           } else {
             // If cancelled, delete message and resolve
-            msg.delete().then(() => resolve('no'));
+            message.delete().then(() => resolve('no'));
           }
         })
         .catch(() => {
           // If time ran out, delete message and resolve
-          msg.delete().then(() => resolve(false));
+          message.delete().then(() => resolve(false));
         });
     });
   });
