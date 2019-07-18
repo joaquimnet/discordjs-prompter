@@ -1,6 +1,11 @@
-const getFilter = require('../src/util/getFilter');
+const { getFilter } = require('../dist/util/getFilter');
 
 describe('Filter tests', () => {
+  test('should be defined and be a function', () => {
+    expect(getFilter).toBeDefined();
+    expect(typeof getFilter).toBe('function');
+  });
+
   test('should return a filter function', () => {
     expect(getFilter('message', { prefix: '!', userId: '123' })).toBeTruthy();
     expect(getFilter('reaction', { confirm: '✅', cancel: '❌' })).toBeTruthy();
@@ -59,7 +64,7 @@ describe('Filter tests', () => {
       {
         emoji: { name: '✅' },
       },
-      { id: '123' }
+      { id: '123' },
     );
     // Correct emoji and id
     const result2 = getFilter('reaction', {
@@ -70,14 +75,14 @@ describe('Filter tests', () => {
       {
         emoji: { name: '✅' },
       },
-      { id: '123' }
+      { id: '123' },
     );
     // Correct emoji no id
     const result3 = getFilter('reaction', { confirm: '✅', cancel: '❌' })(
       {
         emoji: { name: '❌' },
       },
-      { id: '123' }
+      { id: '123' },
     );
     expect(result1).toBeTruthy();
     expect(result2).toBeTruthy();
@@ -111,7 +116,7 @@ describe('Filter tests', () => {
       {
         emoji: { name: '😂' },
       },
-      { id: '123' }
+      { id: '123' },
     );
     // Wrong Id
     const result2 = getFilter('reaction', {
@@ -122,14 +127,14 @@ describe('Filter tests', () => {
       {
         emoji: { name: '✅' },
       },
-      { id: '124' }
+      { id: '124' },
     );
     // Wrong emoji no id
     const result3 = getFilter('reaction', { confirm: '✅', cancel: '❌' })(
       {
         emoji: { name: '😂' },
       },
-      { id: '123' }
+      { id: '123' },
     );
     expect(result1).toBeFalsy();
     expect(result2).toBeFalsy();
