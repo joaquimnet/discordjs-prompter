@@ -23,6 +23,7 @@
       "error",
       { "functions": false, "classes": false, "typedefs": false }
     ],
+    "@typescript-eslint/array-type": ["error", "array-simple"],
     "no-console": 1,
     "prettier/prettier": ["error", {"singleQuote": true, "trailingComma": "all"}],
     "quotes": ["error", "single"]
