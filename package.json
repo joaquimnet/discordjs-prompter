@@ -11,7 +11,9 @@
     "build": "run-s build:*",
     "prepack": "run-s build:*",
     "lint:check": "eslint ./src/**/*",
-    "lint:fix": "eslint ./src/**/* --fix"
+    "lint:fix": "eslint ./src/**/* --fix",
+    "docs": "typedoc --out ./docs --exclude \"**/getFilter.ts\",\"**/index.ts\" ./src",
+    "gh-pages": "rimraf ./docs && npm run docs && gh-pages -d ./docs"
   },
   "keywords": [
     "discord",
@@ -44,11 +46,13 @@
     "eslint": "^6.0.1",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",
+    "gh-pages": "^2.0.1",
     "jest": "^24.8.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2",
     "rimraf": "^2.6.3",
     "ts-jest": "^24.0.2",
+    "typedoc": "^0.14.2",
     "typescript": "^3.5.3"
   },
   "types": "./dist/index.d.ts",
