@@ -1,6 +1,6 @@
 import Discord from 'discord.js';
 
-export const getFilter = (
+export const _getFilter = (
   filterType: string,
   options: {
     confirm?: string | Discord.ReactionEmoji | Discord.Emoji;

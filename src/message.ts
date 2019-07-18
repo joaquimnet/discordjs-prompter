@@ -1,4 +1,4 @@
-import { getFilter } from './util/getFilter';
+import { _getFilter } from './util/getFilter';
 import { TextChannel, Collection, Snowflake, Message, DMChannel, GroupDMChannel } from 'discord.js';
 
 export const message = (
@@ -27,7 +27,7 @@ export const message = (
     channel.send(options.question).then((msg: Message | Message[]) => {
       const message = msg instanceof Array ? msg[0] : msg;
       channel
-        .awaitMessages(getFilter('message', options), {
+        .awaitMessages(_getFilter('message', options), {
           max: options.max,
           time: options.timeout,
           errors: ['time'],

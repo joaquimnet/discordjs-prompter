@@ -1,4 +1,4 @@
-import { getFilter } from './util/getFilter';
+import { _getFilter } from './util/getFilter';
 import { ReactionEmoji, Emoji, TextChannel, GroupDMChannel, DMChannel } from 'discord.js';
 
 export const vote = (
@@ -38,7 +38,7 @@ export const vote = (
 
     // Await for the reactions
     const collected = await message.awaitReactions(
-      getFilter('vote', options),
+      _getFilter('vote', options),
       opt,
     );
 

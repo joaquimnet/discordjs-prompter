@@ -1,4 +1,4 @@
-import { getFilter } from './util/getFilter';
+import { _getFilter } from './util/getFilter';
 import {
   TextChannel,
   DMChannel,
@@ -48,7 +48,7 @@ export const reaction = (
 
       // Await response
       message
-        .awaitReactions(getFilter('reaction', options), {
+        .awaitReactions(_getFilter('reaction', options), {
           max: 1,
           time: options.timeout,
           errors: ['time'],
