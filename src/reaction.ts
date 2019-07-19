@@ -8,13 +8,26 @@ import {
   ReactionEmoji,
 } from 'discord.js';
 
+/**
+ * Prompt for a user reaction in a certain channel.
+ *
+ * @param channel The channel to send the prompt to.
+ * @param options The configuration for the prompt.
+ * @returns A promise that resolves to 'yes' if the user confirms,
+ * to 'no' if the user cancels or false if the user times out.
+ */
 export const reaction = (
   channel: TextChannel | DMChannel | GroupDMChannel,
   options: {
+    /** The question to ask the user. Default: `Yes or No?` */
     question: string;
+    /** The emoji for the confirm option. Default: `✅`*/
     confirm?: string | ReactionEmoji | Emoji;
+    /** The emoji for the cancel option. Default: `❌` */
     cancel?: string | ReactionEmoji | Emoji;
+    /** The id of the user you want to prompt, if not defined the prompt will accept an answer from anyone. */
     userId?: string;
+    /** How long to wait for a response in ms. Default: 30000 */
     timeout?: number;
   } = {
     question: 'Yes or no?',

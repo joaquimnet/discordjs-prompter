@@ -1,5 +1,8 @@
 import Discord from 'discord.js';
 
+/**
+ * @returns A filter to be used in the discordjs's awaitMessage method
+ */
 export const _getFilter = (
   filterType: string,
   options: {
@@ -42,12 +45,6 @@ export const _getFilter = (
     if (options.choices) {
       const choices = options.choices;
       return function filter(reaction: Discord.MessageReaction) {
-        if (!(
-          choices.includes(reaction.emoji.name) ||
-          choices.includes(reaction.emoji)
-        )) {
-          console.log('VOTE FILTER FAILED!');
-        }
         return (
           choices.includes(reaction.emoji.name) ||
           choices.includes(reaction.emoji)

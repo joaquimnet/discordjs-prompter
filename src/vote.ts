@@ -1,25 +1,39 @@
 import { _getFilter } from './util/getFilter';
-import { ReactionEmoji, Emoji, TextChannel, GroupDMChannel, DMChannel } from 'discord.js';
+import {
+  ReactionEmoji,
+  Emoji,
+  TextChannel,
+  GroupDMChannel,
+  DMChannel,
+} from 'discord.js';
 
+/**
+ * Prompt for a user response in a certain channel.
+ *
+ * @param channel The channel to send the prompt to.
+ * @param options The configuration for the prompt.
+ * @returns This promise resolves to the following object:
+ *  ```javascript
+ *    {emojis: [{emoji: 'An emoji from choices[]', count: 0}, ...otherEmojisFromChoices]}
+ *  ```
+ */
 export const vote = (
-  channel: TextChannel|GroupDMChannel|DMChannel,
+  channel: TextChannel | GroupDMChannel | DMChannel,
   options: {
+    /** The message to be sent along with the vote. */
     question: string;
+    /** The emojis to serve as voting options. */
     choices: Array<string | ReactionEmoji | Emoji>;
-    max?: number;
+    /** The duration of the vote Default: `30000`. */
     timeout?: number;
+    /** Should the vote message be deleted after the vote is done? Default: `false`*/
     deleteMessage?: boolean;
-  } = {
-    question: 'Cast your vote!',
-    choices: ['❤', '💛', '💙', '💚', '💜', '🖤'],
-    max: 50,
-    timeout: 30000,
-    deleteMessage: false,
   },
 ) => {
   if (!channel) throw new Error('Missing channel');
-  if (options && !options.choices) throw new Error('Vote prompt requires options.choices');
+  if (!options.choices) throw new Error('Vote prompt requires options.choices');
   if (!options.timeout) options.timeout = 30000;
+  if (options.deleteMessage === undefined) options.deleteMessage = false;
 
   // Function to get the votes
   const getVotes = async () => {
@@ -28,7 +42,7 @@ export const vote = (
 
     // React with possible choices
     for (const choice of options.choices) {
-      message.react(choice);
+      await message.react(choice);
     }
 
     // Options for the collector
@@ -81,7 +95,6 @@ export const vote = (
     return result;
   };
 
-  // Returned promise of vote()
   return new Promise<{
     emojis: Array<{
       emoji: string | ReactionEmoji | Emoji;
@@ -91,7 +104,7 @@ export const vote = (
   }>((resolve, reject) => {
     // Send confirm question
     getVotes()
-      .then(res => resolve(res))
+      .then(emojis => resolve(emojis))
       .catch(e => reject(e));
   });
 };

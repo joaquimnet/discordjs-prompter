@@ -1,16 +1,42 @@
 import { _getFilter } from './util/getFilter';
-import { TextChannel, Collection, Snowflake, Message, DMChannel, GroupDMChannel } from 'discord.js';
+import {
+  TextChannel,
+  Collection,
+  Snowflake,
+  Message,
+  DMChannel,
+  GroupDMChannel,
+} from 'discord.js';
 
+/**
+ * Prompt for a user response in a certain channel.
+ *
+ * @param channel The channel to send the prompt to.
+ * @param options The configuration for the prompt.
+ * @returns A promise that resolves to a collection of messages (or false if you set failIfTimeout to true).
+ */
 export const message = (
   channel: TextChannel | DMChannel | GroupDMChannel,
   options: {
+    /** The question to be asked. */
     question: string;
+    /** If this is set, the prompt will only accept messages starting with this prefix. */
     prefix?: string;
+    /** The id of the user you want to prompt, if not defined the prompt will accept an answer from anyone. */
     userId?: string;
+    /** How long to wait for a response in ms. Default: 30000 */
     timeout?: number;
+    /**
+     * By default, the promise will resolve with a list of messages regardless
+     * of reaching or not the max criteria.
+     * If this is set to true, the promise will resolve to `false`. */
     failIfTimeout?: boolean;
+    /**
+     * How many messages to wait for.
+     * Default: 1
+     */
     max?: number;
-  }
+  },
 ) => {
   if (!channel) throw new Error('Missing channel');
   // Defaults
