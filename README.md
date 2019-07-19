@@ -22,67 +22,36 @@ Prompt for a user response using reactions or a massage.
 Message Prompt:
 
 ```javascript
-const  {  Client  }  =  require('discord.js');
+const client = require('discord.js').Client();
 
-const  prompter  =  require('discordjs-prompter');
+const prompter = require('discordjs-prompter');
 
-  
+client.on('message', msg => {
+  // Listen for a message starting with !foo
 
-// Create an instance of a Discord client
+  if (msg.content.startsWith('!foo')) {
+    // Prompts the user if wether they like bacon or not
 
-const  client  =  new  Client();
+    prompter
+      .message(msg.channel, {
+        question: 'Do you like bacon?',
+        userId: msg.author.id,
+        max: 1,
+        timeout: 10000,
+      })
+      .then(responses => {
+        // If no responses, the time ran out
+        if (!responses.size) {
+          return msg.channel.send(`No time for questions? I see.`);
+        }
+        // Gets the first message in the collection
+        const response = responses.first();
 
-  
-
-client.on('ready',  ()  =>  {
-
-console.log(`Logged in as ${client.user.tag}!`);
-
+        // Respond
+        msg.channel.send(`**${response}** Is that so?`);
+      });
+  }
 });
-
-  
-
-client.on('message',  msg  =>  {
-
-// Listen for a message starting with !foo
-
-if (msg.content.startsWith('!foo')) {
-
-// Prompts the user if wether they like bacon or not
-
-prompter
-
-.message(msg.channel,  {
-
-question:  'Do you like bacon?',
-
-userId:  msg.author.id,
-
-max:  1,
-
-timeout:  10000,
-
-})
-
-.then(responses  =>  {
-
-// If no responses, the time ran out
-
-if (!responses.size) return  msg.channel.send(`No time for questions? I see.`);
-
-// Gets the first message in the collection
-
-const  response  =  responses.first();
-
-msg.channel.send(`**${response}** Is that so?`);
-
-});
-
-}
-
-});
-
-  
 
 client.login('YOUR_BOT_TOKEN_HERE');
 ```
@@ -94,63 +63,28 @@ client.login('YOUR_BOT_TOKEN_HERE');
 Reaction Prompt:
 
 ```javascript
-const  {  Client  }  =  require('discord.js');
+const client = require('discord.js').Client();
 
-const  prompter  =  require('discordjs-prompter');
+const prompter = require('discordjs-prompter');
 
-  
-
-// Create an instance of a Discord client
-
-const  client  =  new  Client();
-
-  
-
-client.on('ready',  ()  =>  {
-
-console.log(`Logged in as ${client.user.tag}!`);
-
+client.on('message', msg => {
+  // Listen for a message starting with !bar
+  if (msg.content.startsWith('!bar')) {
+    // Asks if user is sure
+    prompter
+      .reaction(msg.channel, {
+        question: 'Are you sure?',
+        userId: msg.author.id,
+      })
+      .then(response => {
+        // Response is false if time runs out
+        if (!response) return msg.reply('you took too long!');
+        // Returns 'yes' if user confirms and 'no' if ser cancels.
+        if (response === 'yes') return msg.channel.send('You chose yes!');
+        if (response === 'no') return msg.channel.send('You chose no!');
+      });
+  }
 });
-
-  
-
-client.on('message',  msg  =>  {
-
-// Listen for a message starting with !bar
-
-if (msg.content.startsWith('!bar')) {
-
-// Asks if user is sure
-
-prompter
-
-.reaction(msg.channel,  {
-
-question:  'Are you sure?',
-
-userId:  msg.author.id,
-
-})
-
-.then(response  =>  {
-
-// Response is false if time runs out
-
-if (!response) return  msg.reply('you took too long!');
-
-// Returns 'yes' if user confirms and 'no' if ser cancels.
-
-if (response  ===  'yes') return  msg.channel.send('You chose yes!');
-
-if (response  ===  'no') return  msg.channel.send('You chose no!');
-
-});
-
-}
-
-});
-
-  
 
 client.login('YOUR_BOT_TOKEN_HERE');
 ```
@@ -177,14 +111,14 @@ Prompts the user and returns a promise that will resolve to the collection of me
 
 **Options object:**
 
-| Option | Effect |
-|--|--|
-| question | The message to be displayed. (Default: `'Yes or No?'`) |
-| prefix | If provided, will only collect messages starting with this prefix. (Default: `null`) |
-| userId | If not provided, it will, respecting the prefix option, resolve to the next message on the channel regardless of who responded. |
-| timeout | How long to wait for the messages. (Default: `30000`) |
+| Option        | Effect                                                                                                                                                                                       |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| question      | The message to be displayed. (Default: `'Yes or No?'`)                                                                                                                                       |
+| prefix        | If provided, will only collect messages starting with this prefix. (Default: `null`)                                                                                                         |
+| userId        | If not provided, it will, respecting the prefix option, resolve to the next message on the channel regardless of who responded.                                                              |
+| timeout       | How long to wait for the messages. (Default: `30000`)                                                                                                                                        |
 | failIfTimeout | By default, the promise will resolve with a list of messages regardless of reaching or not the max criteria. If this is set to true, the promise will resolve to `false`. (Default: `false`) |
-| max | How many messages to collect. (Default: `1`) |
+| max           | How many messages to collect. (Default: `1`)                                                                                                                                                 |
 
 * * *
 
@@ -204,10 +138,10 @@ Prompts the user with two reactions and returns a promise that will resolve to e
 
 **Options object:**
 
-| Option | Effect |
-|--|--|
-| question | The message to be displayed. (Default: `'Yes or No?'`) |
-| userId | If not provided, it will resolve to the next reaction that fulfills the confirm/cancel options regardless of who reacted. |
-| confirm | The [unicode emoji](https://unicode.org/emoji/charts/full-emoji-list.html) to use as the confirm option (Default: ✅) |
-| cancel | The [unicode emoji](https://unicode.org/emoji/charts/full-emoji-list.html) to use as the cancel option (Default: ❌) |
-| timeout | How long to wait for the messages. (Default: `30000`) |
+| Option   | Effect                                                                                                                    |
+| -------- | ------------------------------------------------------------------------------------------------------------------------- |
+| question | The message to be displayed. (Default: `'Yes or No?'`)                                                                    |
+| userId   | If not provided, it will resolve to the next reaction that fulfills the confirm/cancel options regardless of who reacted. |
+| confirm  | The [unicode emoji](https://unicode.org/emoji/charts/full-emoji-list.html) to use as the confirm option (Default: ✅)      |
+| cancel   | The [unicode emoji](https://unicode.org/emoji/charts/full-emoji-list.html) to use as the cancel option (Default: ❌)       |
+| timeout  | How long to wait for the messages. (Default: `30000`)                                                                     |
