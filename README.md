@@ -98,6 +98,25 @@ client.login('YOUR_BOT_TOKEN_HERE');
 
 * * *
 
+Vote prompt
+
+```javascript
+  // ...other discordjs logic
+    Prompter.vote(message.channel, {
+      question: 'Cast your vote!',
+      choices: ['🔥', '💙'],
+      timeout: 3000,
+    }).then((response) => {
+      const winner = response.emojis[0];
+      message.channel.send(winner.emoji + ' won!!');
+    });
+  // other discordjs logic...
+```
+
+![alt text](https://i.imgur.com/jdNkRhi.gif "Voting on the message")
+
+* * *
+
 ## Documentation
 
 [Go to documentation](https://joaquimnet.github.io/discordjs-prompter)
