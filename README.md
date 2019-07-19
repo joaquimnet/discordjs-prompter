@@ -7,7 +7,7 @@
 <a href="https://github.com/joaquimnet/discordjs-prompter#readme" target="_blank">
 <img src="https://img.shields.io/github/package-json/v/joaquimnet/discordjs-prompter/master.svg?color=yellow&cacheSeconds=2592000" alt="Version@Master" />
 </a>
-<a  href="https://github.com/joaquimnet/discordjs-prompter#api">
+<a  href="https://joaquimnet.github.io/discordjs-prompter">
 <img  alt="Documentation"  src="https://img.shields.io/badge/documentation-yes-green.svg"  target="_blank"  />
 </a>
 <a  href="https://github.com/joaquimnet/discordjs-prompter/blob/master/LICENSE">
@@ -16,6 +16,11 @@
 </p>
 
 Prompt for a user response using reactions or a massage.
+
+## Features
+- Message prompt
+- Reaction prompt
+- Vote prompt **(new)**
 
 ## Examples
 
@@ -93,55 +98,6 @@ client.login('YOUR_BOT_TOKEN_HERE');
 
 * * *
 
-## API
+## Documentation
 
-### **Prompt.message(channel, options);**
-
-Prompts the user and returns a promise that will resolve to the collection of messages collected. The messages to be collected can be configured with the options object.
-
--   channel: [TextChannel](https://discord.js.org/#/docs/main/stable/class/TextChannel)
-
--   The text channel to send the prompt to.
-
--   options: Object
-
--   The configuration object
-
--   **Returns: Promise&lt;[Collection](https://discord.js.org/#/docs/main/stable/class/TextChannel)&lt;[Snowflake](https://discord.js.org/#/docs/main/stable/typedef/Snowflake), [Message](https://discord.js.org/#/docs/main/stable/class/Message)>>**
-
-**Options object:**
-
-| Option        | Effect                                                                                                                                                                                       |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| question      | The message to be displayed. (Default: `'Yes or No?'`)                                                                                                                                       |
-| prefix        | If provided, will only collect messages starting with this prefix. (Default: `null`)                                                                                                         |
-| userId        | If not provided, it will, respecting the prefix option, resolve to the next message on the channel regardless of who responded.                                                              |
-| timeout       | How long to wait for the messages. (Default: `30000`)                                                                                                                                        |
-| failIfTimeout | By default, the promise will resolve with a list of messages regardless of reaching or not the max criteria. If this is set to true, the promise will resolve to `false`. (Default: `false`) |
-| max           | How many messages to collect. (Default: `1`)                                                                                                                                                 |
-
-* * *
-
-### **Prompt.reaction(channel, options);**
-
-Prompts the user with two reactions and returns a promise that will resolve to either 'yes' if the user confirms, 'no' if the user cancels or false if the time runs out.
-
--   channel: [TextChannel](https://discord.js.org/#/docs/main/stable/class/TextChannel)
-
--   The text channel to send the prompt to.
-
--   options: Object
-
--   The configuration object
-
--   **Returns: Promise&lt;string|boolean>**
-
-**Options object:**
-
-| Option   | Effect                                                                                                                    |
-| -------- | ------------------------------------------------------------------------------------------------------------------------- |
-| question | The message to be displayed. (Default: `'Yes or No?'`)                                                                    |
-| userId   | If not provided, it will resolve to the next reaction that fulfills the confirm/cancel options regardless of who reacted. |
-| confirm  | The [unicode emoji](https://unicode.org/emoji/charts/full-emoji-list.html) to use as the confirm option (Default: ✅)      |
-| cancel   | The [unicode emoji](https://unicode.org/emoji/charts/full-emoji-list.html) to use as the cancel option (Default: ❌)       |
-| timeout  | How long to wait for the messages. (Default: `30000`)                                                                     |
+[Go to documentation](https://joaquimnet.github.io/discordjs-prompter)
