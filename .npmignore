@@ -1,9 +1,11 @@
 tests
 src
-*.log
+docs
+coverage
 .vscode
+*.log
 tsconfig.json
 .eslintignore
 .eslintrc.json
 jest.config.js
-coverage
+gendoc.js
