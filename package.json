@@ -12,8 +12,8 @@
     "prepack": "run-s build:*",
     "lint:check": "eslint ./src/**/*",
     "lint:fix": "eslint ./src/**/* --fix",
-    "docs": "typedoc --out ./docs --exclude \"**/getFilter.ts\",\"**/index.ts\" ./src",
-    "gh-pages": "rimraf ./docs && npm run docs && gh-pages -d ./docs"
+    "docs": "node gendoc.js",
+    "gh-pages": "npm run docs && gh-pages -d ./docs"
   },
   "keywords": [
     "discord",
