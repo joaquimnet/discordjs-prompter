@@ -2,9 +2,18 @@
   "name": "discordjs-prompter",
   "version": "1.1.0",
   "description": "Prompt for a user response using reactions or a massage.",
-  "main": "./src/index.js",
+  "main": "./dist/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "run-s build:* && jest --verbose && npm run lint:check",
+    "build:clean": "rimraf ./dist",
+    "build:typescript": "tsc --pretty",
+    "build:declaration": "dts-bundle-generator ./src/index.ts -o ./dist/index.d.ts --external-imports=discord.js",
+    "build": "run-s build:*",
+    "prepack": "run-s build:*",
+    "lint:check": "eslint ./src/**/*",
+    "lint:fix": "eslint ./src/**/* --fix",
+    "docs": "typedoc --out ./docs --exclude \"**/getFilter.ts\",\"**/index.ts\" ./src",
+    "gh-pages": "rimraf ./docs && npm run docs && gh-pages -d ./docs"
   },
   "keywords": [
     "discord",
@@ -21,9 +30,33 @@
     "url": "https://github.com/joaquimnet/discordjs-prompter.git"
   },
   "homepage": "https://github.com/joaquimnet/discordjs-prompter",
+  "bugs": "https://github.com/joaquimnet/discordjs-prompter/issues",
   "dependencies": {},
   "peerDependencies": {
-    "discord.js": "^11.0.0"
+    "discord.js": "11.x"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/jest": "^24.0.15",
+    "@types/node": "^12.6.8",
+    "@typescript-eslint/eslint-plugin": "^1.12.0",
+    "@typescript-eslint/parser": "^1.12.0",
+    "babel-jest": "^24.8.0",
+    "discord.js": "^11.5.1",
+    "dts-bundle-generator": "^3.1.0",
+    "eslint": "^6.0.1",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "gh-pages": "^2.0.1",
+    "jest": "^24.8.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.18.2",
+    "rimraf": "^2.6.3",
+    "ts-jest": "^24.0.2",
+    "typedoc": "^0.14.2",
+    "typescript": "^3.5.3"
+  },
+  "types": "./dist/index.d.ts",
+  "engines": {
+    "node": ">=10.0.0"
+  }
 }

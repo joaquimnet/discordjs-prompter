@@ -1,0 +1,9 @@
+tests
+src
+*.log
+.vscode
+tsconfig.json
+.eslintignore
+.eslintrc.json
+jest.config.js
+coverage
