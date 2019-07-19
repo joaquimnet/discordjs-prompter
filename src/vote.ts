@@ -31,7 +31,9 @@ export const vote = (
   },
 ) => {
   if (!channel) throw new Error('Missing channel');
-  if (!options.choices) throw new Error('Vote prompt requires options.choices');
+  if (!options || !options.choices) {
+    throw new Error('Vote prompt requires options.choices');
+  }
   if (!options.timeout) options.timeout = 30000;
   if (options.deleteMessage === undefined) options.deleteMessage = false;
 

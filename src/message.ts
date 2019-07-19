@@ -46,8 +46,6 @@ export const message = (
   if (!options.failIfTimeout) options.failIfTimeout = false;
   if (!options.max) options.max = 1;
 
-  console.log('MESSAGE OPTIONS:', options);
-
   // This function will return a promise that will resolve to a collection of message or false if the time ran out
   return new Promise<Collection<Snowflake, Message> | false>(resolve => {
     channel.send(options.question).then((msg: Message | Message[]) => {
