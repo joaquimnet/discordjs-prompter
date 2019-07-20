@@ -72,7 +72,7 @@
 					<a href="https://github.com/joaquimnet/discordjs-prompter#readme" target="_blank">
 						<img src="https://img.shields.io/github/package-json/v/joaquimnet/discordjs-prompter/master.svg?color=yellow&cacheSeconds=2592000" alt="Version@Master" />
 					</a>
-					<a  href="https://github.com/joaquimnet/discordjs-prompter#api">
+					<a  href="https://joaquimnet.github.io/discordjs-prompter">
 						<img  alt="Documentation"  src="https://img.shields.io/badge/documentation-yes-green.svg"  target="_blank"  />
 					</a>
 					<a  href="https://github.com/joaquimnet/discordjs-prompter/blob/master/LICENSE">
@@ -80,6 +80,12 @@
 					</a>
 				</p>
 				<p>Prompt for a user response using reactions or a massage.</p>
+				<h2 id="features">Features</h2>
+				<ul>
+					<li>Message prompt</li>
+					<li>Reaction prompt</li>
+					<li>Vote prompt <strong>(new)</strong></li>
+				</ul>
 				<h2 id="examples">Examples</h2>
 				<p>Message Prompt:</p>
 				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> client = <span class="hljs-built_in">require</span>(<span class="hljs-string">'discord.js'</span>).Client();
@@ -143,98 +149,21 @@ client.on(<span class="hljs-string">'message'</span>, msg =&gt; {
 client.login(<span class="hljs-string">'YOUR_BOT_TOKEN_HERE'</span>);</code></pre>
 				<p><img src="https://i.imgur.com/Uhko2lY.gif" alt="alt text" title="Reacting to the bot&#39;s message"></p>
 				<hr>
-				<h2 id="api">API</h2>
-				<h3 id="prompt-message-channel-options-"><strong>Prompt.message(channel, options);</strong></h3>
-				<p>Prompts the user and returns a promise that will resolve to the collection of messages collected. The messages to be collected can be configured with the options object.</p>
-				<ul>
-					<li><p>channel: <a href="https://discord.js.org/#/docs/main/stable/class/TextChannel">TextChannel</a></p>
-					</li>
-					<li><p>The text channel to send the prompt to.</p>
-					</li>
-					<li><p>options: Object</p>
-					</li>
-					<li><p>The configuration object</p>
-					</li>
-					<li><p><strong>Returns: Promise&lt;<a href="https://discord.js.org/#/docs/main/stable/class/TextChannel">Collection</a>&lt;<a href="https://discord.js.org/#/docs/main/stable/typedef/Snowflake">Snowflake</a>, <a href="https://discord.js.org/#/docs/main/stable/class/Message">Message</a>&gt;&gt;</strong></p>
-					</li>
-				</ul>
-				<p><strong>Options object:</strong></p>
-				<table>
-					<thead>
-						<tr>
-							<th>Option</th>
-							<th>Effect</th>
-						</tr>
-					</thead>
-					<tbody><tr>
-							<td>question</td>
-							<td>The message to be displayed. (Default: <code>&#39;Yes or No?&#39;</code>)</td>
-						</tr>
-						<tr>
-							<td>prefix</td>
-							<td>If provided, will only collect messages starting with this prefix. (Default: <code>null</code>)</td>
-						</tr>
-						<tr>
-							<td>userId</td>
-							<td>If not provided, it will, respecting the prefix option, resolve to the next message on the channel regardless of who responded.</td>
-						</tr>
-						<tr>
-							<td>timeout</td>
-							<td>How long to wait for the messages. (Default: <code>30000</code>)</td>
-						</tr>
-						<tr>
-							<td>failIfTimeout</td>
-							<td>By default, the promise will resolve with a list of messages regardless of reaching or not the max criteria. If this is set to true, the promise will resolve to <code>false</code>. (Default: <code>false</code>)</td>
-						</tr>
-						<tr>
-							<td>max</td>
-							<td>How many messages to collect. (Default: <code>1</code>)</td>
-						</tr>
-				</tbody></table>
+				<p>Vote prompt:</p>
+				<pre><code class="language-javascript">  <span class="hljs-comment">// ...other discordjs logic</span>
+  Prompter.vote(message.channel, {
+    <span class="hljs-attr">question</span>: <span class="hljs-string">'Cast your vote!'</span>,
+    <span class="hljs-attr">choices</span>: [<span class="hljs-string">'🔥'</span>, <span class="hljs-string">'💙'</span>],
+    <span class="hljs-attr">timeout</span>: <span class="hljs-number">3000</span>,
+  }).then(<span class="hljs-function">(<span class="hljs-params">response</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> winner = response.emojis[<span class="hljs-number">0</span>];
+    message.channel.send(winner.emoji + <span class="hljs-string">' won!!'</span>);
+  });
+  <span class="hljs-comment">// other discordjs logic...</span></code></pre>
+				<p><img src="https://i.imgur.com/jdNkRhi.gif" alt="alt text" title="Voting on the message"></p>
 				<hr>
-				<h3 id="prompt-reaction-channel-options-"><strong>Prompt.reaction(channel, options);</strong></h3>
-				<p>Prompts the user with two reactions and returns a promise that will resolve to either &#39;yes&#39; if the user confirms, &#39;no&#39; if the user cancels or false if the time runs out.</p>
-				<ul>
-					<li><p>channel: <a href="https://discord.js.org/#/docs/main/stable/class/TextChannel">TextChannel</a></p>
-					</li>
-					<li><p>The text channel to send the prompt to.</p>
-					</li>
-					<li><p>options: Object</p>
-					</li>
-					<li><p>The configuration object</p>
-					</li>
-					<li><p><strong>Returns: Promise&lt;string|boolean&gt;</strong></p>
-					</li>
-				</ul>
-				<p><strong>Options object:</strong></p>
-				<table>
-					<thead>
-						<tr>
-							<th>Option</th>
-							<th>Effect</th>
-						</tr>
-					</thead>
-					<tbody><tr>
-							<td>question</td>
-							<td>The message to be displayed. (Default: <code>&#39;Yes or No?&#39;</code>)</td>
-						</tr>
-						<tr>
-							<td>userId</td>
-							<td>If not provided, it will resolve to the next reaction that fulfills the confirm/cancel options regardless of who reacted.</td>
-						</tr>
-						<tr>
-							<td>confirm</td>
-							<td>The <a href="https://unicode.org/emoji/charts/full-emoji-list.html">unicode emoji</a> to use as the confirm option (Default: ✅)</td>
-						</tr>
-						<tr>
-							<td>cancel</td>
-							<td>The <a href="https://unicode.org/emoji/charts/full-emoji-list.html">unicode emoji</a> to use as the cancel option (Default: ❌)</td>
-						</tr>
-						<tr>
-							<td>timeout</td>
-							<td>How long to wait for the messages. (Default: <code>30000</code>)</td>
-						</tr>
-				</tbody></table>
+				<h2 id="documentation">Documentation</h2>
+				<p><a href="https://joaquimnet.github.io/discordjs-prompter">Go to documentation</a></p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
