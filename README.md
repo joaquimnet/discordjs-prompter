@@ -98,18 +98,18 @@ client.login('YOUR_BOT_TOKEN_HERE');
 
 * * *
 
-Vote prompt
+Vote prompt:
 
 ```javascript
   // ...other discordjs logic
-    Prompter.vote(message.channel, {
-      question: 'Cast your vote!',
-      choices: ['🔥', '💙'],
-      timeout: 3000,
-    }).then((response) => {
-      const winner = response.emojis[0];
-      message.channel.send(winner.emoji + ' won!!');
-    });
+  Prompter.vote(message.channel, {
+    question: 'Cast your vote!',
+    choices: ['🔥', '💙'],
+    timeout: 3000,
+  }).then((response) => {
+    const winner = response.emojis[0];
+    message.channel.send(winner.emoji + ' won!!');
+  });
   // other discordjs logic...
 ```
 
