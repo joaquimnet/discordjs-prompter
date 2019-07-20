@@ -10,6 +10,7 @@
     "build:declaration": "dts-bundle-generator ./src/index.ts -o ./dist/index.d.ts --external-imports=discord.js",
     "build": "run-s build:*",
     "prepack": "run-s build:*",
+    "prepublishOnly": "npm t",
     "lint:check": "eslint ./src/**/*",
     "lint:fix": "eslint ./src/**/* --fix",
     "docs": "node gendoc.js",
