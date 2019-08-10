@@ -22,6 +22,8 @@ export const choice = (
     question: string;
     /** The emojis to serve as choice options. */
     choices: Array<string | ReactionEmoji | Emoji>;
+    /** The id of the user you want to prompt, if not defined the prompt will accept an answer from anyone. */
+    userId?: string;
     /** The duration of the prompt Default: `30000`. */
     timeout?: number;
     /** Should the message be deleted after the prompt is done? Default: `true`*/

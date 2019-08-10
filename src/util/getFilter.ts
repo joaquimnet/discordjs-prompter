@@ -51,8 +51,28 @@ export const _getFilter = (
         );
       };
     } else {
+      throw new Error('Choice filter requires options.choices');
+    }
+  }
+
+  if (filterType === 'choice') {
+    if (options.choices) {
+      const { choices, userId } = options;
+      return function filter(
+        reaction: Discord.MessageReaction,
+        user: Discord.User,
+      ) {
+        const correctUser = (!userId || user.id === userId) && !user.bot;
+        return (
+          correctUser &&
+          (choices.includes(reaction.emoji.name) ||
+            choices.includes(reaction.emoji))
+        );
+      };
+    } else {
       throw new Error('Vote filter requires options.choices');
     }
   }
+
   throw new Error('Unknown filter');
 };

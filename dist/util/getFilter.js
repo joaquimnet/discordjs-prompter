@@ -38,6 +38,20 @@ exports._getFilter = (filterType, options) => {
             };
         }
         else {
+            throw new Error('Choice filter requires options.choices');
+        }
+    }
+    if (filterType === 'choice') {
+        if (options.choices) {
+            const { choices, userId } = options;
+            return function filter(reaction, user) {
+                const correctUser = (!userId || user.id === userId) && !user.bot;
+                return (correctUser &&
+                    (choices.includes(reaction.emoji.name) ||
+                        choices.includes(reaction.emoji)));
+            };
+        }
+        else {
             throw new Error('Vote filter requires options.choices');
         }
     }

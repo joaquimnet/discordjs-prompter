@@ -47,6 +47,7 @@ declare const Prompter: {
 	choice: (channel: import("discord.js").TextChannel | import("discord.js").GroupDMChannel | import("discord.js").DMChannel, options: {
 		question: string;
 		choices: import("discord.js").EmojiIdentifierResolvable[];
+		userId?: string | undefined;
 		timeout?: number | undefined;
 		deleteMessage?: boolean | undefined;
 	}) => Promise<string | import("discord.js").Emoji | import("discord.js").ReactionEmoji | null>;
