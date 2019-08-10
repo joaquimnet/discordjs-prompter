@@ -2,10 +2,10 @@
 
 <p align="center">
 <a href="https://npmjs.com/package/discordjs-prompter">
-<img  src="https://img.shields.io/npm/v/discordjs-prompter.svg?cacheSeconds=2592000"  />
+<img  src="https://img.shields.io/npm/v/discordjs-prompter.svg"  />
 </a>
 <a href="https://github.com/joaquimnet/discordjs-prompter#readme" target="_blank">
-<img src="https://img.shields.io/github/package-json/v/joaquimnet/discordjs-prompter/master.svg?color=yellow&cacheSeconds=2592000" alt="Version@Master" />
+<img src="https://img.shields.io/github/package-json/v/joaquimnet/discordjs-prompter/master.svg?color=yellow" alt="Version@Master" />
 </a>
 <a  href="https://joaquimnet.github.io/discordjs-prompter">
 <img  alt="Documentation"  src="https://img.shields.io/badge/documentation-yes-green.svg"  target="_blank"  />
