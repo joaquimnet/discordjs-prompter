@@ -5,6 +5,7 @@
 import { message } from './message';
 import { reaction } from './reaction';
 import { vote } from './vote';
+import { choice } from './choice';
 
 /**
  * Main Prompter object
@@ -25,6 +26,11 @@ const Prompter = {
    * See [[vote]]
    */
   vote,
+  /**
+   * The choice function
+   * See [[choice]]
+   */
+  choice,
 };
 
 export default Prompter;
