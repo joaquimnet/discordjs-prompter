@@ -28,6 +28,10 @@ export const choice = (
     timeout?: number;
     /** Should the message be deleted after the prompt is done? Default: `true`*/
     deleteMessage?: boolean;
+    /** Should the prompt wait until all reactions were sent before accepting a response?
+     *  Note: this is faster but the reactions wont be sent in order. Default: `false`
+     */
+    acceptEarly?: boolean,
   },
 ) => {
   if (!channel) throw new Error('Missing channel');
@@ -36,6 +40,7 @@ export const choice = (
   }
   if (!options.timeout) options.timeout = 30000;
   if (options.deleteMessage === undefined) options.deleteMessage = true;
+  if (!options.acceptEarly) options.acceptEarly = false;
 
   const getResponse = async () => {
     const msg = await channel.send(options.question);
@@ -43,7 +48,11 @@ export const choice = (
 
     // React with possible choices
     for (const choice of options.choices) {
-      await message.react(choice);
+      if (options.acceptEarly) {
+        await message.react(choice);
+      } else {
+        message.react(choice);
+      }
     }
 
     // Await the response
