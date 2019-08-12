@@ -82,9 +82,10 @@
 				<p>Prompt for a user response using reactions or a massage.</p>
 				<h2 id="features">Features</h2>
 				<ul>
-					<li>Message prompt</li>
-					<li>Reaction prompt</li>
-					<li>Vote prompt <strong>(new)</strong></li>
+					<li>Message prompt -&gt; Get text</li>
+					<li>Reaction prompt -&gt; Accept or cancel</li>
+					<li>Vote prompt <strong>(new)</strong> -&gt; Collect votes</li>
+					<li>Choice prompt <strong>(new)</strong> -&gt; An emoji reaction</li>
 				</ul>
 				<h2 id="examples">Examples</h2>
 				<p>Message Prompt:</p>
@@ -156,7 +157,7 @@ client.on(<span class="hljs-string">'message'</span>, msg =&gt; {
 				<hr>
 				<p>Choice prompt:</p>
 				<pre><code class="language-javascript">  <span class="hljs-comment">// ...other discordjs logic</span>
-  <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> Prompter.choice({
+  <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> Prompter.choice(message.channel, {
     <span class="hljs-attr">question</span>: <span class="hljs-string">'Pick an emoji!'</span>,
     <span class="hljs-attr">choices</span>: [<span class="hljs-string">'✨'</span>, <span class="hljs-string">'❌'</span>],
     <span class="hljs-attr">userId</span>: message.author.id
