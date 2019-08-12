@@ -88,9 +88,7 @@
 				</ul>
 				<h2 id="examples">Examples</h2>
 				<p>Message Prompt:</p>
-				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> client = <span class="hljs-built_in">require</span>(<span class="hljs-string">'discord.js'</span>).Client();
-
-<span class="hljs-keyword">const</span> prompter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'discordjs-prompter'</span>);
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> prompter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'discordjs-prompter'</span>);
 
 client.on(<span class="hljs-string">'message'</span>, msg =&gt; {
   <span class="hljs-comment">// Listen for a message starting with !foo</span>
@@ -117,15 +115,11 @@ client.on(<span class="hljs-string">'message'</span>, msg =&gt; {
         msg.channel.send(<span class="hljs-string">`**<span class="hljs-subst">${response}</span>** Is that so?`</span>);
       });
   }
-});
-
-client.login(<span class="hljs-string">'YOUR_BOT_TOKEN_HERE'</span>);</code></pre>
+});</code></pre>
 				<p><img src="https://i.imgur.com/nNfBXYi.gif" alt="alt text" title="Answering to the bot&#39;s question."></p>
 				<hr>
 				<p>Reaction Prompt:</p>
-				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> client = <span class="hljs-built_in">require</span>(<span class="hljs-string">'discord.js'</span>).Client();
-
-<span class="hljs-keyword">const</span> prompter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'discordjs-prompter'</span>);
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> prompter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'discordjs-prompter'</span>);
 
 client.on(<span class="hljs-string">'message'</span>, msg =&gt; {
   <span class="hljs-comment">// Listen for a message starting with !bar</span>
@@ -144,9 +138,7 @@ client.on(<span class="hljs-string">'message'</span>, msg =&gt; {
         <span class="hljs-keyword">if</span> (response === <span class="hljs-string">'no'</span>) <span class="hljs-keyword">return</span> msg.channel.send(<span class="hljs-string">'You chose no!'</span>);
       });
   }
-});
-
-client.login(<span class="hljs-string">'YOUR_BOT_TOKEN_HERE'</span>);</code></pre>
+});</code></pre>
 				<p><img src="https://i.imgur.com/Uhko2lY.gif" alt="alt text" title="Reacting to the bot&#39;s message"></p>
 				<hr>
 				<p>Vote prompt:</p>
@@ -161,6 +153,16 @@ client.login(<span class="hljs-string">'YOUR_BOT_TOKEN_HERE'</span>);</code></pr
   });
   <span class="hljs-comment">// other discordjs logic...</span></code></pre>
 				<p><img src="https://i.imgur.com/jdNkRhi.gif" alt="alt text" title="Voting on the message"></p>
+				<hr>
+				<p>Choice prompt:</p>
+				<pre><code class="language-javascript">  <span class="hljs-comment">// ...other discordjs logic</span>
+  <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> Prompter.choice({
+    <span class="hljs-attr">question</span>: <span class="hljs-string">'Pick an emoji!'</span>,
+    <span class="hljs-attr">choices</span>: [<span class="hljs-string">'✨'</span>, <span class="hljs-string">'❌'</span>],
+    <span class="hljs-attr">userId</span>: message.author.id
+  });
+  <span class="hljs-built_in">console</span>.log(response); <span class="hljs-comment">// -&gt; ✨ or ❌ or null if user doesn't respond</span>
+  <span class="hljs-comment">// other discordjs logic...</span></code></pre>
 				<hr>
 				<h2 id="documentation">Documentation</h2>
 				<p><a href="https://joaquimnet.github.io/discordjs-prompter">Go to documentation</a></p>
