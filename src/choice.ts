@@ -14,6 +14,14 @@ import {
  * @param channel The channel to send the prompt to.
  * @param options The configuration for the prompt.
  * @returns A promise that resolves to the emoji the user reacts to or null if the user times out.
+ * @example
+ * const Prompter = require('discordjs-prompter');
+ * const response = await Prompter.choice({
+ *    question: 'Pick an emoji!',
+ *    choices: ['✨', '❌'],
+ *    userId: message.author.id
+ * });
+ * console.log(response); // -> ✨ or ❌ or null if user doesn't respond
  */
 export const choice = (
   channel: TextChannel | DMChannel | GroupDMChannel,
@@ -31,7 +39,7 @@ export const choice = (
     /** Should the prompt wait until all reactions were sent before accepting a response?
      *  Note: this is faster but the reactions wont be sent in order. Default: `false`
      */
-    acceptEarly?: boolean,
+    acceptEarly?: boolean;
   },
 ) => {
   if (!channel) throw new Error('Missing channel');

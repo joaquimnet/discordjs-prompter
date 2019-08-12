@@ -50,6 +50,7 @@ declare const Prompter: {
 		userId?: string | undefined;
 		timeout?: number | undefined;
 		deleteMessage?: boolean | undefined;
+		acceptEarly?: boolean | undefined;
 	}) => Promise<string | import("discord.js").Emoji | import("discord.js").ReactionEmoji | null>;
 };
 export default Prompter;

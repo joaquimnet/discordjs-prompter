@@ -27,8 +27,6 @@ Prompt for a user response using reactions or a massage.
 Message Prompt:
 
 ```javascript
-const client = require('discord.js').Client();
-
 const prompter = require('discordjs-prompter');
 
 client.on('message', msg => {
@@ -57,8 +55,6 @@ client.on('message', msg => {
       });
   }
 });
-
-client.login('YOUR_BOT_TOKEN_HERE');
 ```
 
 ![alt text](https://i.imgur.com/nNfBXYi.gif "Answering to the bot's question.")
@@ -68,8 +64,6 @@ client.login('YOUR_BOT_TOKEN_HERE');
 Reaction Prompt:
 
 ```javascript
-const client = require('discord.js').Client();
-
 const prompter = require('discordjs-prompter');
 
 client.on('message', msg => {
@@ -90,8 +84,6 @@ client.on('message', msg => {
       });
   }
 });
-
-client.login('YOUR_BOT_TOKEN_HERE');
 ```
 
 ![alt text](https://i.imgur.com/Uhko2lY.gif "Reacting to the bot's message")
@@ -114,6 +106,21 @@ Vote prompt:
 ```
 
 ![alt text](https://i.imgur.com/jdNkRhi.gif "Voting on the message")
+
+* * *
+
+Choice prompt:
+
+```javascript
+  // ...other discordjs logic
+  const response = await Prompter.choice({
+    question: 'Pick an emoji!',
+    choices: ['✨', '❌'],
+    userId: message.author.id
+  });
+  console.log(response); // -> ✨ or ❌ or null if user doesn't respond
+  // other discordjs logic...
+```
 
 * * *
 

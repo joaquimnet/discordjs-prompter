@@ -15,6 +15,14 @@ const getFilter_1 = require("./util/getFilter");
  * @param channel The channel to send the prompt to.
  * @param options The configuration for the prompt.
  * @returns A promise that resolves to the emoji the user reacts to or null if the user times out.
+ * @example
+ * const Prompter = require('discordjs-prompter');
+ * const response = await Prompter.choice({
+ *    question: 'Pick an emoji!',
+ *    choices: ['✨', '❌'],
+ *    userId: message.author.id
+ * });
+ * console.log(response); // -> ✨ or ❌ or null if user doesn't respond
  */
 exports.choice = (channel, options) => {
     if (!channel)
@@ -26,12 +34,19 @@ exports.choice = (channel, options) => {
         options.timeout = 30000;
     if (options.deleteMessage === undefined)
         options.deleteMessage = true;
+    if (!options.acceptEarly)
+        options.acceptEarly = false;
     const getResponse = () => __awaiter(this, void 0, void 0, function* () {
         const msg = yield channel.send(options.question);
         const message = msg instanceof Array ? msg[0] : msg;
         // React with possible choices
         for (const choice of options.choices) {
-            yield message.react(choice);
+            if (options.acceptEarly) {
+                yield message.react(choice);
+            }
+            else {
+                message.react(choice);
+            }
         }
         // Await the response
         let collected;

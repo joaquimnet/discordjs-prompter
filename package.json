@@ -9,10 +9,12 @@
     "build:typescript": "tsc --pretty",
     "build:declaration": "dts-bundle-generator ./src/index.ts -o ./dist/index.d.ts --external-imports=discord.js",
     "build": "run-s build:*",
-    "prepublishOnly": "run-s build:* && npm t",
     "lint:check": "eslint ./src/**/*",
     "lint:fix": "eslint ./src/**/* --fix",
-    "docs": "node gendoc.js",
+    "publish-package": "npm t && npm publish",
+    "docs:generate": "node gendoc.js",
+    "docs:push": "git add ./docs/** && git commit -m \"📝 Generated docs\" && git push",
+    "docs": "run-s docs:*",
     "gh-pages": "npm run docs && gh-pages -d ./docs"
   },
   "keywords": [
