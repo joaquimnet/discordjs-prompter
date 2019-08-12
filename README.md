@@ -18,9 +18,10 @@
 Prompt for a user response using reactions or a massage.
 
 ## Features
-- Message prompt
-- Reaction prompt
-- Vote prompt **(new)**
+- Message prompt -> Get text
+- Reaction prompt -> Accept or cancel
+- Vote prompt **(new)** -> Collect votes
+- Choice prompt **(new)** -> An emoji reaction
 
 ## Examples
 
@@ -113,7 +114,7 @@ Choice prompt:
 
 ```javascript
   // ...other discordjs logic
-  const response = await Prompter.choice({
+  const response = await Prompter.choice(message.channel, {
     question: 'Pick an emoji!',
     choices: ['✨', '❌'],
     userId: message.author.id
