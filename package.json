@@ -1,7 +1,7 @@
 {
   "name": "discordjs-prompter",
   "version": "1.3.0",
-  "description": "Prompt for a user response using reactions or a massage.",
+  "description": "Prompt for a user response using reactions or a message.",
   "main": "./dist/index.js",
   "scripts": {
     "test": "run-s build:* && jest --verbose && npm run lint:check",
@@ -35,7 +35,7 @@
   "bugs": "https://github.com/joaquimnet/discordjs-prompter/issues",
   "dependencies": {},
   "peerDependencies": {
-    "discord.js": "11.x"
+    "discord.js": "^11.5.1"
   },
   "devDependencies": {
     "@types/jest": "^24.0.15",

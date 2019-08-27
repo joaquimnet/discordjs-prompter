@@ -15,7 +15,7 @@
 </a>
 </p>
 
-Prompt for a user response using reactions or a massage.
+Prompt for a user response using reactions or a message.
 
 ## Features
 - Message prompt -> Get text
