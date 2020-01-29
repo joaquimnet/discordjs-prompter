@@ -2,7 +2,6 @@ import { _getFilter } from './util/getFilter';
 import {
   TextChannel,
   DMChannel,
-  GroupDMChannel,
   Message,
   Emoji,
   ReactionEmoji,
@@ -17,7 +16,7 @@ import {
  * to 'no' if the user cancels or false if the user times out.
  */
 export const reaction = (
-  channel: TextChannel | DMChannel | GroupDMChannel,
+  channel: TextChannel | DMChannel,
   options: {
     /** The question to ask the user. Default: `Yes or No?` */
     question: string;

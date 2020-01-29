@@ -1,11 +1,5 @@
 import { _getFilter } from './util/getFilter';
-import {
-  ReactionEmoji,
-  Emoji,
-  TextChannel,
-  GroupDMChannel,
-  DMChannel,
-} from 'discord.js';
+import { ReactionEmoji, Emoji, TextChannel, DMChannel } from 'discord.js';
 
 /**
  * Prompt for a user response in a certain channel.
@@ -18,7 +12,7 @@ import {
  *  ```
  */
 export const vote = (
-  channel: TextChannel | GroupDMChannel | DMChannel,
+  channel: TextChannel | DMChannel,
   options: {
     /** The message to be sent along with the vote. */
     question: string;

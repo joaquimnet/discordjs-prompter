@@ -2,7 +2,6 @@ import { _getFilter } from './util/getFilter';
 import {
   TextChannel,
   DMChannel,
-  GroupDMChannel,
   Emoji,
   ReactionEmoji,
   EmojiIdentifierResolvable,
@@ -24,7 +23,7 @@ import {
  * console.log(response); // -> ✨ or ❌ or null if user doesn't respond
  */
 export const choice = (
-  channel: TextChannel | DMChannel | GroupDMChannel,
+  channel: TextChannel | DMChannel,
   options: {
     /** The message to be sent along with the prompt. */
     question: string;
