@@ -81,7 +81,7 @@ export const choice = (
     let result: EmojiIdentifierResolvable | null = null;
 
     for (const reaction of collected) {
-      const guildEmoji = message.guild.emojis.get(reaction[0]);
+      const guildEmoji = message.guild.emojis.cache.get(reaction[0]);
       result = guildEmoji ? guildEmoji : reaction[0];
     }
 
