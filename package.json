@@ -35,7 +35,7 @@
   "bugs": "https://github.com/joaquimnet/discordjs-prompter/issues",
   "dependencies": {},
   "peerDependencies": {
-    "discord.js": "^11.5.1"
+    "discord.js": "^12.0.0"
   },
   "devDependencies": {
     "@types/jest": "^24.9.1",
