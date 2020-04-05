@@ -61,7 +61,7 @@ export const message = (
         })
         .catch(collected => {
           // Clear the prompt and resolve with the result
-          if(!channel instanceof DMChannel) {
+          if (!(channel instanceof DMChannel)) {
             message.delete().then(() => {
               if (options.failIfTimeout) {
                 resolve(false);
