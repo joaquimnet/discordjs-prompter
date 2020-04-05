@@ -40,8 +40,8 @@
   "devDependencies": {
     "@types/jest": "^24.9.1",
     "@types/node": "^12.12.30",
-    "@typescript-eslint/eslint-plugin": "^1.13.0",
-    "@typescript-eslint/parser": "^1.13.0",
+    "@typescript-eslint/eslint-plugin": "^2.26.0",
+    "@typescript-eslint/parser": "^2.26.0",
     "babel-jest": "^24.9.0",
     "discord.js": "^11.6.3",
     "dts-bundle-generator": "^3.3.1",
