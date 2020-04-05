@@ -1,6 +1,6 @@
 {
   "name": "discordjs-prompter",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Prompt for a user response using reactions or a message.",
   "main": "./dist/index.js",
   "scripts": {
