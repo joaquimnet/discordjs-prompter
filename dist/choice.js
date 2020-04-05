@@ -38,6 +38,7 @@ exports.choice = (channel, options) => {
     if (!options.acceptEarly)
         options.acceptEarly = false;
     const getResponse = () => __awaiter(void 0, void 0, void 0, function* () {
+        var _a;
         const msg = yield channel.send(options.question);
         const message = msg instanceof Array ? msg[0] : msg;
         // React with possible choices
@@ -68,7 +69,7 @@ exports.choice = (channel, options) => {
             yield message.delete();
         let result = null;
         for (const reaction of collected) {
-            const guildEmoji = message.guild.emojis.cache.get(reaction[0]);
+            const guildEmoji = (_a = message.guild) === null || _a === void 0 ? void 0 : _a.emojis.cache.get(reaction[0]);
             result = guildEmoji ? guildEmoji : reaction[0];
         }
         return result;
