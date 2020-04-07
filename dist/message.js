@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const getFilter_1 = require("./util/getFilter");
+const discord_js_1 = require("discord.js");
 /**
  * Prompt for a user response in a certain channel.
  *
@@ -38,14 +39,24 @@ exports.message = (channel, options) => {
             })
                 .catch(collected => {
                 // Clear the prompt and resolve with the result
-                message.delete().then(() => {
-                    if (options.failIfTimeout) {
-                        resolve(false);
-                    }
-                    else {
-                        resolve(collected);
-                    }
-                });
+                if (!(channel instanceof discord_js_1.DMChannel)) {
+                    message.delete().then(() => {
+                        if (options.failIfTimeout) {
+                            resolve(false);
+                        }
+                        else {
+                            resolve(collected);
+                        }
+                    });
+                }
+                // Resolve without deleting if DMChannel
+                // Because deleting is not allowed in DMChannel
+                if (options.failIfTimeout) {
+                    resolve(false);
+                }
+                else {
+                    resolve(collected);
+                }
             });
         });
     });
