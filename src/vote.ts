@@ -53,7 +53,7 @@ export const vote = (
     );
 
     // Delete message after collecting
-    if (options.deleteMessage) {
+    if (options.deleteMessage && !(channel instanceof DMChannel)) {
       await message.delete();
     }
 

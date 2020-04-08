@@ -69,14 +69,27 @@ export const reaction = (
           const reaction = collected.first();
           if (reaction.emoji.name === confirm) {
             // If confirmed, delete message and resolve
-            message.delete().then(() => resolve('yes'));
+            if (channel instanceof DMChannel) {
+              resolve('yes');
+            } else {
+              message.delete().then(() => resolve('yes'));
+              return;
+            }
           } else {
             // If cancelled, delete message and resolve
+            if (channel instanceof DMChannel) {
+              resolve('no');
+              return;
+            }
             message.delete().then(() => resolve('no'));
           }
         })
         .catch(() => {
           // If time ran out, delete message and resolve
+          if (channel instanceof DMChannel) {
+            resolve(false);
+            return;
+          }
           message.delete().then(() => resolve(false));
         });
     });

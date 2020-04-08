@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const getFilter_1 = require("./util/getFilter");
+const discord_js_1 = require("discord.js");
 /**
  * Prompt for a user reaction in a certain channel.
  *
@@ -61,12 +62,14 @@ exports.choice = (channel, options) => {
         }
         catch (e) {
             // If time ran out, delete message and resolve
-            if (options.deleteMessage)
+            if (options.deleteMessage && !(channel instanceof discord_js_1.DMChannel)) {
                 yield message.delete();
+            }
             return null;
         }
-        if (options.deleteMessage)
+        if (options.deleteMessage && !(channel instanceof discord_js_1.DMChannel)) {
             yield message.delete();
+        }
         let result = null;
         for (const reaction of collected) {
             const guildEmoji = (_a = message.guild) === null || _a === void 0 ? void 0 : _a.emojis.cache.get(reaction[0]);

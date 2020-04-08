@@ -72,11 +72,15 @@ export const choice = (
       });
     } catch (e) {
       // If time ran out, delete message and resolve
-      if (options.deleteMessage) await message.delete();
+      if (options.deleteMessage && !(channel instanceof DMChannel)) {
+        await message.delete();
+      }
       return null;
     }
 
-    if (options.deleteMessage) await message.delete();
+    if (options.deleteMessage && !(channel instanceof DMChannel)) {
+      await message.delete();
+    }
 
     let result: EmojiIdentifierResolvable | null = null;
 

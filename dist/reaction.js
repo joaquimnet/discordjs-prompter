@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const getFilter_1 = require("./util/getFilter");
+const discord_js_1 = require("discord.js");
 /**
  * Prompt for a user reaction in a certain channel.
  *
@@ -49,15 +50,29 @@ exports.reaction = (channel, options = {
                 const reaction = collected.first();
                 if (reaction.emoji.name === confirm) {
                     // If confirmed, delete message and resolve
-                    message.delete().then(() => resolve('yes'));
+                    if (channel instanceof discord_js_1.DMChannel) {
+                        resolve('yes');
+                    }
+                    else {
+                        message.delete().then(() => resolve('yes'));
+                        return;
+                    }
                 }
                 else {
                     // If cancelled, delete message and resolve
+                    if (channel instanceof discord_js_1.DMChannel) {
+                        resolve('no');
+                        return;
+                    }
                     message.delete().then(() => resolve('no'));
                 }
             })
                 .catch(() => {
                 // If time ran out, delete message and resolve
+                if (channel instanceof discord_js_1.DMChannel) {
+                    resolve(false);
+                    return;
+                }
                 message.delete().then(() => resolve(false));
             });
         });

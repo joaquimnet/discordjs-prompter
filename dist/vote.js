@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const getFilter_1 = require("./util/getFilter");
+const discord_js_1 = require("discord.js");
 /**
  * Prompt for a user response in a certain channel.
  *
@@ -45,7 +46,7 @@ exports.vote = (channel, options) => {
         // Await for the reactions
         const collected = yield message.awaitReactions(getFilter_1._getFilter('vote', options), opt);
         // Delete message after collecting
-        if (options.deleteMessage) {
+        if (options.deleteMessage && !(channel instanceof discord_js_1.DMChannel)) {
             yield message.delete();
         }
         const result = { emojis: [], total: 0 };
