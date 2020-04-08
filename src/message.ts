@@ -5,7 +5,6 @@ import {
   Snowflake,
   Message,
   DMChannel,
-  GroupDMChannel,
 } from 'discord.js';
 
 /**
@@ -16,7 +15,7 @@ import {
  * @returns A promise that resolves to a collection of messages (or false if you set failIfTimeout to true).
  */
 export const message = (
-  channel: TextChannel | DMChannel | GroupDMChannel,
+  channel: TextChannel | DMChannel,
   options: {
     /** The question to be asked. */
     question: string;

@@ -3,7 +3,6 @@ import {
   ReactionEmoji,
   Emoji,
   TextChannel,
-  GroupDMChannel,
   DMChannel,
 } from 'discord.js';
 
@@ -18,7 +17,7 @@ import {
  *  ```
  */
 export const vote = (
-  channel: TextChannel | GroupDMChannel | DMChannel,
+  channel: TextChannel | DMChannel,
   options: {
     /** The message to be sent along with the vote. */
     question: string;
