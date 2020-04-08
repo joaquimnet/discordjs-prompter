@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.3
+
+- Fix potential problems on DMs for other prompters. (choice, vote, reaction)
+
 ## 2.0.2
 
 - Fix choice prompter not working on DMs. [f9077a1](https://github.com/joaquimnet/discordjs-prompter/commit/f9077a1b6646de4cfbd89dd2e6bcb49a9c7e2fdf)
