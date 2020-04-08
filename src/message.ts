@@ -62,13 +62,24 @@ export const message = (
         })
         .catch(collected => {
           // Clear the prompt and resolve with the result
-          message.delete().then(() => {
-            if (options.failIfTimeout) {
-              resolve(false);
-            } else {
-              resolve(collected);
-            }
-          });
+          if (!(channel instanceof DMChannel)) {
+            message.delete().then(() => {
+              if (options.failIfTimeout) {
+                resolve(false);
+              } else {
+                resolve(collected);
+              }
+            });
+          }
+
+          // just resolve with the result
+          // no clear prompt because message.delete()
+          // is not allowed in DMChannel
+          if (options.failIfTimeout) {
+            resolve(false);
+          } else {
+            resolve(collected);
+          }
         });
     });
   });
