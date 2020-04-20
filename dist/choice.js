@@ -39,7 +39,7 @@ exports.choice = (channel, options) => {
     if (!options.acceptEarly)
         options.acceptEarly = false;
     const getResponse = () => __awaiter(void 0, void 0, void 0, function* () {
-        var _a;
+        var _a, _b;
         const msg = yield channel.send(options.question);
         const message = msg instanceof Array ? msg[0] : msg;
         // React with possible choices
@@ -72,7 +72,7 @@ exports.choice = (channel, options) => {
         }
         let result = null;
         for (const reaction of collected) {
-            const guildEmoji = (_a = message.guild) === null || _a === void 0 ? void 0 : _a.emojis.cache.get(reaction[0]);
+            const guildEmoji = (_b = (_a = message.guild) === null || _a === void 0 ? void 0 : _a.emojis.cache) === null || _b === void 0 ? void 0 : _b.get(reaction[0]);
             result = guildEmoji ? guildEmoji : reaction[0];
         }
         return result;
