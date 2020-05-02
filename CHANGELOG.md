@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.4
+
+- Fix DM error. [a12a5d1](https://github.com/joaquimnet/discordjs-prompter/commit/a12a5d19e6aff115587b4a64ab643b12e9a74819)
+
 ## 2.0.3
 
 - Fix potential problems on DMs for other prompters. (choice, vote, reaction)
