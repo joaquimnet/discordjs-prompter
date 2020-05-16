@@ -5,6 +5,7 @@ import {
   Message,
   Emoji,
   ReactionEmoji,
+  MessageReaction,
 } from 'discord.js';
 
 /**
@@ -45,7 +46,7 @@ export const reaction = (
   options.confirm = confirm;
   options.cancel = cancel;
 
-  return new Promise<'yes' | 'no' | false>(resolve => {
+  return new Promise<MessageReaction | false>(resolve => {
     // Send confirm question
     channel.send(options.question).then((msg: Message | Message[]) => {
       const message = msg instanceof Array ? msg[0] : msg;
@@ -70,18 +71,18 @@ export const reaction = (
           if (reaction.emoji.name === confirm) {
             // If confirmed, delete message and resolve
             if (channel instanceof DMChannel) {
-              resolve('yes');
+              resolve(reaction);
             } else {
-              message.delete().then(() => resolve('yes'));
+              message.delete().then(() => resolve(reaction));
               return;
             }
           } else {
             // If cancelled, delete message and resolve
             if (channel instanceof DMChannel) {
-              resolve('no');
+              resolve(reaction);
               return;
             }
-            message.delete().then(() => resolve('no'));
+            message.delete().then(() => resolve(reaction));
           }
         })
         .catch(() => {
